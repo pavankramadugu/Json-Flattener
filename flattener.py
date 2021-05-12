@@ -56,4 +56,4 @@ if __name__ == '__main__':
 
     flattened_data_list = [FlatTheData().get_flattened_data(d) for d in data]
 
-    print(flattened_data_list)
+    print(pd.DataFrame(flattened_data_list))
