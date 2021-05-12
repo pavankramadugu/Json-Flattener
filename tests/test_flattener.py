@@ -1,6 +1,6 @@
 from flattener import FlatTheData
 import unittest
-import pandas
+import json
 
 
 class TestFlatTheData(unittest.TestCase):
@@ -17,25 +17,15 @@ class TestFlatTheData(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_list(self):
-        array = [
-            {
-                "a": 1,
-                "b": 2,
-                "c_d": 3,
-                "c_e": 4
-            },
-            {
-                "a": 0.5,
-                "c_d": 3.2
-            },
-            {
-                "a": 0.8,
-                "b": 1.8
-            }
-        ]
-        expected = [{'a': 1, 'b': 2, 'c_d': 3, 'c_e': 4}, {'a': 0.5, 'c_d': 3.2}, {'a': 0.8, 'b': 1.8}]
+        file = open('../Sample2.json')
+        array = json.loads(file.read())
+        expected = [{'id': 1, 'values_0_a': 1, 'values_0_b': 2, 'values_0_c_d': 3, 'values_0_c_f': 4, 'values_1_a': 0.5,
+                     'values_1_c_b': 3.2, 'values_2_a': 0.8, 'values_2_b': 1.8},
+                    {'id': 2, 'values_0_a': 1, 'values_0_b': 2, 'values_0_c_d': 3, 'values_0_c_e': 4, 'values_1_a': 0.5,
+                     'values_1_c_d': 3.2, 'values_2_a': 0.8, 'values_2_b': 1.8}]
 
         actual = [FlatTheData().get_flattened_data(d) for d in array]
+        file.close()
         self.assertEqual(expected, actual)
 
 
